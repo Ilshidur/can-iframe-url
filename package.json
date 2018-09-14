@@ -1,0 +1,28 @@
+{
+  "name": "can-iframe-url",
+  "version": "1.0.0",
+  "description": "Detect if an url can be included in an  by detecting the X-Frame-Options header with a HEAD request.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ilshidur/can-iframe-url.git"
+  },
+  "keywords": [
+    "iframe",
+    "x-frame-options",
+    "frame",
+    "check"
+  ],
+  "author": "Ilshidur",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ilshidur/can-iframe-url/issues"
+  },
+  "homepage": "https://github.com/Ilshidur/can-iframe-url#readme",
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
