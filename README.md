@@ -12,7 +12,7 @@
 
 [![NPM][npm-stats-badge]][npm-stats-url]
 
-> Detect if an url can be included in an <iframe> by detecting the `X-Frame-Options` header with a HEAD request.
+> Detect if an url can be included in an <iframe> by detecting the `X-Frame-Options` header with a OPTIONS request.
 
 ## Install
 
