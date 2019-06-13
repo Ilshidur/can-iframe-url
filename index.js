@@ -1,14 +1,44 @@
-const canIframeHeader = (header, domain) => {
-  
+const canIframeHeader = (h, originUrl, domain) => {
+  // header is 'X-Frame-Options' value
+  const header = h ? h.toLowerCase() : null
+
+  const originDomain = (new URL(originUrl)).hostname
+
+  if (!header) {
+    return true
+  }
+
+  if (header === 'deny') {
+    return false
+  }
+
+  // From now on, checking `allow-from` & `sameorigin`.
+
+  if (!domain) {
+    return false
+  }
+
+  if (header === 'sameorigin') {
+    return originDomain === domain
+  }
+
+  if (header.indexOf('allow-from') >= 0) {
+    const match = /^allow-from (.*)$/.exec(header)
+    if (!match[1]) {
+      return false
+    }
+
+    const url = new URL(match[1])
+    return url.hostname === domain
+  }
+
+  // Invalid HTTP header.
+  return false
 };
 
-const canIframeUrl = fetch => (url, domain, options) => {
+const canIframeUrl = fetch => (url, domain, options = {}) => {
   if (!url) {
     return Promise.resolve(false);
-  }
-  if (!options) {
-    options = domain || {};
-    domain = null;
   }
 
   const fetchRequest = new Request(url);
@@ -19,7 +49,7 @@ const canIframeUrl = fetch => (url, domain, options) => {
   return fetch(fetchRequest, fetchOptions)
     .then(fetchResponse => {
       try {
-        return canIframeHeader(fetchResponse.headers.get('X-Frame-Options'), domain);
+        return canIframeHeader(fetchResponse.headers.get('X-Frame-Options'), url, domain);
       } catch (err) {
         return false;
       }

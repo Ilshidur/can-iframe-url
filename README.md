@@ -24,6 +24,8 @@ This package compatibility depends on the [Fetch API](https://caniuse.com/#feat=
 
 **UMD compatible.**
 
+*Note : this library does not handle how browsers behaviors might differ from each other. This is purely based on the `X-Frame-Options` intended behavior.*
+
 ## Usage
 
 ### Node.js
@@ -32,14 +34,15 @@ This package compatibility depends on the [Fetch API](https://caniuse.com/#feat=
 // Exports a function that returns a Promise
 const canIframeUrl = require('can-iframe-url');
 
-const includeAllowed = await canIframeUrl('http://google.fr');
+const includeAllowed = await canIframeUrl('http://google.com', null);
+const includeAllowed = await canIframeUrl('http://google.com', 'google.com');
 // false
 ```
 
 ### Browser
 
 ```javascript
-const includeAllowed = await window.canIframeUrl('http://google.fr');
+const includeAllowed = await window.canIframeUrl('http://google.com', window.location.hostname);
 // false
 ```
 
@@ -51,7 +54,7 @@ const includeAllowed = await window.canIframeUrl('http://google.fr');
 
 MIT License
 
-Copyright (c) 2018 **Nicolas COUTIN**
+Copyright (c) 2018-2019 **Nicolas COUTIN**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
